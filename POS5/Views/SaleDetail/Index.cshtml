@@ -1,0 +1,69 @@
+﻿
+@model IEnumerable<POS5.Models.SaleDetail>
+@{
+    ViewBag.Title = "Index";
+    //    Layout = "~/Views/_ViewStart.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4> <b>Sale Detail</b></h4>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+
+            <thead>
+
+                <tr class="table-primary">
+                    <th class="th-lg">ID</th>
+                    <th class="th-lg">mid</th>
+                    <th class="th-lg">item id</th>
+                    <th class="th-lg">item name</th>
+                    <th class="th-lg">sale price</th>
+                    <th class="th-lg">quantity</th>
+                    <th class="th-lg">total</th>
+                  
+                </tr>
+
+            </thead>
+
+            <tbody>
+                <tr>
+
+
+                    @if (!Model.Any())
+                    {
+                    }
+                    else
+                    {
+                        foreach (var lst_SaleDetail in Model)
+                        {
+                        <tr>
+                            <td>@lst_SaleDetail.id</td>
+                            <td>@lst_SaleDetail.mid</td>
+                            <td>@lst_SaleDetail.itemid</td>
+                            <td>@lst_SaleDetail.itemname</td>
+                            <td>@lst_SaleDetail.saleprice</td>
+                            <td>@lst_SaleDetail.quantity</td>
+                            <td>@lst_SaleDetail.total</td>
+
+                            
+                        </tr>
+
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            @*<button type="submit" class="btn btn-info shiny" onclick="window.location='@Url.Action("New", "SaleDetail")'"><i class="btn-label glyphicon glyphicon-plus"></i>New</button>*@
+        </div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,43 @@
+﻿@model POS5.viewModels.LedgerVM
+@{
+    ViewBag.Title = "New";
+    //   /Layout = "~/Views/_ViewStart.cshtml";
+}
+
+
+@using (Html.BeginForm("View", "ItemLedger", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h3><b> </b></h3>
+    <div class="card">
+       <div class="col-sm-3">
+            <div class="form-group ml-3">
+                <b>Item Name</b>
+               @Html.DropDownListFor(m => m.parameter.name, new SelectList(Model.Itemlist, "Name", "Name"), "Select Item Name", htmlAttributes: new { @class = "form-control input-xs" })
+           </div>
+            <div class="form-group ml-3">
+                <b>Date From</b>
+                @Html.TextBoxFor(m => m.parameter.datefrom, new { @class = "form-control input-xs", id = "date", type = "date", @Value = DateTime.Today.ToString("yyyy-MM-dd") })
+            </div>
+            <div class="form-group ml-3">
+                <b>Date To</b>
+                @Html.TextBoxFor(m => m.parameter.datet, new { @class = "form-control input-xs", id = "date", type = "date", @Value = DateTime.Today.ToString("yyyy-MM-dd") })
+            </div>
+            
+                    @Html.HiddenFor(m => m.parameter.id)
+
+
+            <button type="submit" class="btn btn-outline-success my-2 ml-2 "><i class="fas fa-save"></i>View</button>
+        </div>
+    </div>
+
+}
+
+
+
+
+
+
+
+

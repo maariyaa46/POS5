@@ -1,0 +1,291 @@
+﻿@model POS5.viewModels.PurchaseVM
+@{
+    ViewBag.Title = "New";
+    //   /Layout = "~/Views/_ViewStart.cshtml";
+}
+<h2> Purchase master</h2>
+
+@using (Html.BeginForm("Save", "Pmaster", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="card mx-3">
+    <div class="row mx-3">
+
+        <div class="col-sm-3">
+            <b>Date</b>
+            @Html.TextBoxFor(m => m.PMaster.date, new { @class = "form-control input-xs", id = "date", type = "date", @Value = DateTime.Today.ToString("yyyy-MM-dd") })
+        </div>
+        <div class="col-sm-3">
+            <b>Supplier Name</b>
+            @Html.DropDownListFor(m => m.PMaster.supplier, new SelectList(Model.Supplierlist, "Name", "Name"), "Select Supplier Name", htmlAttributes: new { @class = "form-control input-xs" })
+        </div>
+        <div class="col-sm-3">
+            <b>Stock</b>
+            @Html.TextBoxFor(m => m.PMaster.stock, new { @class = "form-control input-xs", required = "required" })
+        </div>
+    </div>
+    <br />
+
+    <br />
+    <div class="row mx-3">
+
+        <input type="hidden" id="itemid" />
+        <div class="form-group col-md-3">
+            <b>Item Name</b>
+            <select id="itemname" class="form-control">
+                <option value="">Select item</option>
+                @foreach (var item in Model.Itemlist)
+                {
+                    <option value="@item.name" data-price="@item.price" data-id="@item.id">@item.name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <b>QTY</b>
+            <input type="" class="form-control" id="qty" onkeydown='return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189' onkeyup="multiply()" />
+        </div>
+        <div class="col-md-3">
+            <b>Price</b>
+            <input type="" class="form-control" id="itemprice" onkeydown='return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189' onkeyup="multiply()" />
+        </div>
+        <div class="form-group col-md-2">
+            <b>Total</b>
+            <input type="" class="form-control input-xs" id="total" onkeyup="multiply()" onkeydown='return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189' />
+        </div>
+        <div class="form-group col-md-1 mt-4">
+            <input type="button" id="btnAdd " onclick="javascript:addRow()" onkeyup="addRow()" class="btn btn-success btn-sm" value="Add" />
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <table id="saletable" cellpadding="0" cellspacing="0" class="table table-responsive">
+        <thead>
+            <tr class=" table-info">
+
+                <th></th>
+                <th style="width:100px"></th>
+                <th style="width:210px">Item Name</th>
+                <th style="width:210px">QTY</th>
+                <th style="width:210px">Price</th>
+                <th style="width:210px">Total</th>
+                <th style="width:210px">Action</th>
+                <th style="width:70px"></th>
+            </tr>
+        </thead>
+        <tbody id="item_data">
+
+            @if (Model.PMaster.id == 0)
+            {
+                <body>
+                </body>
+            }
+            else
+            {
+
+
+                foreach (var item in Model.PDetaillist)
+                {
+
+                    <tr>
+                        <td style="width:10px !important"></td>
+                        <td><input type="hidden" name="id[]" value=" @item.id " required class="form-control" readonly autocomplete="off"></td>
+                        <td><input type="text" name="Name[]" value=" @item.itemname " readonly class="form-control" autocomplete="off"></td>
+                        <td><input type="text" name="Qty[]" value=" @item.quantity " readonly class="form-control" autocomplete="off"></td>
+                        <td><input type="text" name="Price[]" value=" @item.saleprice " readonly class="form-control" autocomplete="off"></td>
+                        <td><input type="text" name="Total[]" value=" @item.total " readonly class="form-control" autocomplete="off"></td>
+                        <td> <input type="button" id="btndel" onclick="javascript:deleteRows()" class="btn btn-danger btn-sm" value="Delete" /></td>
+                        <td style="width:10px !important"></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+    <br />
+
+    <br />
+
+    <div class="row mx-3">
+
+        <div class="col-sm-3">
+            <b>Gross total</b>
+            @Html.TextBoxFor(m => m.PMaster.grosstotal, new { @class = "form-control input-xs", id = "gross", onkeyup = "net()", required = "required" })
+        </div>
+        <div class="col-sm-3">
+            <b>Tax</b>
+            @Html.TextBoxFor(m => m.PMaster.tax, new { @class = "form-control input-xs", id = "tax", onkeyup = "net()", required = "required" })
+
+        </div>
+        <div class="col-sm-3">
+            <b>Discount</b>
+            @Html.TextBoxFor(m => m.PMaster.discount, new { @class = "form-control input-xs", id = "disc", onkeyup = "net()", required = "required" })
+        </div>
+        <div class="col-sm-3">
+            <b>Net Total</b>
+            @Html.TextBoxFor(m => m.PMaster.nettotal, new { @class = "form-control input-xs", id = "net1", required = "required" })
+        </div>
+
+        <div class="col-sm-3">
+            <b>Received amount</b>
+            @Html.TextBoxFor(m => m.PMaster.receivedamount, new { @class = "form-control input-xs", id = "receive1", onkeyup = "grand()", required = "required" })
+        </div>
+        <div class="col-sm-3">
+            <b>Remaining amount</b>
+            @Html.TextBoxFor(m => m.PMaster.balanceamount, new { @class = "form-control input-xs", id = "rem", required = "required" })
+        </div>
+    </div>
+    <div class="col">
+        <b>Comment</b>
+        @Html.TextBoxFor(m => m.PMaster.comment, new { @class = "form-control input-lg", id = "rem", required = "required" })
+    </div>
+    <br />
+    <div class="col-sm-3 mx-2">
+        @Html.HiddenFor(m => m.PMaster.id)
+        <button type="submit" class="btn btn-info shiny"><i class="btn-label glyphicon glyphicon-saved"></i>Save</button>
+        </div>
+    </div>
+
+
+    }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        function multiply() {
+
+            var quantity = document.getElementById('qty').value;
+            var itemprice = document.getElementById('itemprice').value;
+
+            $('#total').val(quantity * itemprice);
+
+        }
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <SCRIPT language="javascript">
+
+        function addRow() {
+
+            var id = document.getElementById('itemid').value;
+            var Name = document.getElementById('itemname').value;
+            var Quantity = document.getElementById('qty').value;
+            var Price = document.getElementById('itemprice').value;
+            var Total = document.getElementById('total').value;
+            if (id == "" || id == 0) {
+
+                var amount = 0;
+                $('#item_data tr').each(function () {
+                    var a = $(this).find('[name = "Total[]"]').val();
+                    amount += parseFloat(a);
+                });
+                $('#gross').val(amount);
+                $('#rem').val(amount);
+                $('#net1').val(amount);
+            }
+
+            else {
+                var htmlRows = '';
+                htmlRows += '<tr>';
+                htmlRows += ' <td style="width:10px !important"></td>';
+                htmlRows += '<td><input type="hidden" name="id[]" value="' + id + '" required class="form-control" readonly autocomplete="off"></td>';
+                htmlRows += '<td><input type="text" name="Name[]" value="' + Name + '" readonly class="form-control" autocomplete="off"></td>';
+                htmlRows += '<td><input type="text" name="Qty[]" value="' + Quantity + ' " readonly class="form-control" autocomplete="off"></td>';
+                htmlRows += '<td><input type="text" name="Price[]" value="' + Price + ' " readonly class="form-control" autocomplete="off"></td>';
+                htmlRows += '<td><input type="text" name="Total[]" value="' + Total + ' " readonly class="form-control" autocomplete="off"></td>';
+                htmlRows += '<td> <input type="button" id="btndel" onclick="javascript:deleteRows()" class="btn btn-danger btn-sm" value="Delete" /></td>';
+                htmlRows += ' <td style="width:10px !important"></td>';
+                $('#saletable').append(htmlRows);
+                var amount = 0;
+                $('#item_data tr').each(function () {
+                    var a = $(this).find('[name = "Total[]"]').val();
+                    amount += parseFloat(a);
+
+
+                });
+                $('#itemid').val('');
+                $('#itemname').val('');
+                $('#qty').val('');
+                $('#itemprice').val('');
+                $('#total').val('');
+                $('#gross').val(amount);
+                $('#rem').val(amount);
+                $('#net1').val(amount);
+
+            }
+        }
+
+    </SCRIPT>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <SCRIPT language="javascript">
+        function deleteRows() {
+            var table = document.getElementById('saletable');
+            var rowCount = table.rows.length;
+            if (rowCount > '1') {
+                var row = table.deleteRow(rowCount - 1);
+                rowCount--;
+            }
+
+            multiply();
+            net();
+            grand();
+            addRow();
+        }
+
+    </SCRIPT>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script language="javascript">
+        function net() {
+            var gross = document.getElementById('gross').value;
+            var tax = document.getElementById('tax').value;
+            var discount = document.getElementById('disc').value;
+            $('#rem').val(parseInt(gross) + parseInt(tax) - parseInt(discount));
+            $('#net1').val(parseInt(gross) + parseInt(tax) - parseInt(discount));
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script language="javascript">
+        function grand() {
+
+            var receive = document.getElementById('receive1').value;
+            var b = $('#net1').val();
+            c = receive - b;
+            $('#rem').val(c);
+
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#itemname").change(function () {
+                var name = $("#itemname").val();
+                if (name.length > 0) {
+                    const id = $(this).children('option:selected').data('id');
+                    $("#itemid").val(id);
+                    const price = $(this).children('option:selected').data('price');
+                    $("#itemprice").val(price);
+                } else {
+                    $("#itemid").val('');
+                    $("#itemprice").val('');
+                }
+
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+

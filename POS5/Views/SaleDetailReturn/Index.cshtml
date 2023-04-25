@@ -1,0 +1,63 @@
+﻿@model IEnumerable<POS5.Models.SaleDetailReturn>
+@{
+    ViewBag.Title = "Index";
+    //    Layout = "~/Views/_ViewStart.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4> <b>Sale Detail Return</b></h4>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+
+            <thead>
+
+                <tr class="table-danger">
+                    <th class="th-lg">ID</th>
+                    <th class="th-lg">mid</th>
+                    <th class="th-lg">item id</th>
+                    <th class="th-lg">item name</th>
+                    <th class="th-lg">sale price</th>
+                    <th class="th-lg">quantity</th>
+                    <th class="th-lg">total</th>
+                  
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    @if (!Model.Any())
+                    {
+                    }
+                    else
+                    {
+                        foreach (var lst_SaleDetailReturn in Model)
+                        {
+                <tr>
+                    <td>@lst_SaleDetailReturn.id</td>
+                    <td>@lst_SaleDetailReturn.mid</td>
+                    <td>@lst_SaleDetailReturn.itemid</td>
+                    <td>@lst_SaleDetailReturn.itemname</td>
+                    <td>@lst_SaleDetailReturn.saleprice</td>
+                    <td>@lst_SaleDetailReturn.quantity</td>
+                    <td>@lst_SaleDetailReturn.total</td>
+                   
+                </tr>
+
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            
+        </div>
+
+
+
+
+
+

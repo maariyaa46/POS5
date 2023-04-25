@@ -1,0 +1,63 @@
+﻿@model IEnumerable<POS5.Models.Stocks>
+@{
+    ViewBag.Title = "Index";
+    //    Layout = "~/Views/_ViewStart.cshtml";
+}
+
+<h4>Stocks List</h4>
+<button type="submit" class="btn btn-info shiny" onclick="window.location='@Url.Action("New", "Stocks")'"><i class="btn-label glyphicon glyphicon-plus"></i>New</button>
+
+
+<table>
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Total</td>
+            <td>Price</td>
+            <td>Sold</td>
+
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @if (!Model.Any())
+        {
+        }
+        else
+        {
+            foreach (var lst_Stocks in Model)
+            {
+        <tr>
+            <td>@lst_Stocks.id</td>
+            <td>@lst_Stocks.name</td>
+            <td>@lst_Stocks.total</td>
+            <td>@lst_Stocks.price</td>
+            <td>@lst_Stocks.sold</td>
+
+
+
+
+
+
+            <td>
+                <a href="@Url.Action("Edit", new { id = lst_Stocks.id })" class="btn btn-warning shiny input-xs"><i class="btn-label glyphicon glyphicon-edit">EDIT</i></a>
+                <a href="@Url.Action("Delete", new { id = lst_Stocks.id })" class="btn btn-warning shiny input-xs"><i class="btn-label glyphicon glyphicon-edit">Delete</i></a>
+            </td>
+
+        </tr>
+            }
+        }
+
+
+
+    </tbody>
+
+
+</table>
+
+
+
+
+

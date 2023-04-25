@@ -1,0 +1,74 @@
+﻿
+@model IEnumerable<POS5.Models.PdetailR>
+@{
+    ViewBag.Title = "Index";
+    //    Layout = "~/Views/_ViewStart.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4> <b>Purchase Detail Return</b></h4>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+
+            <thead>
+
+                <tr class="table-primary">
+                    <th class="th-lg">ID</th>
+                    <th class="th-lg">mid</th>
+                    <th class="th-lg">item id</th>
+                    <th class="th-lg">item name</th>
+                    <th class="th-lg">sale price</th>
+                    <th class="th-lg">quantity</th>
+                    <th class="th-lg">total</th>
+                    
+                </tr>
+
+            </thead>
+
+            <tbody>
+                <tr>
+
+
+                    @if (!Model.Any())
+                    {
+                    }
+                    else
+                    {
+                        foreach (var lst_PdetailR in Model)
+                        {
+                        <tr>
+                            <td>@lst_PdetailR.id</td>
+                            <td>@lst_PdetailR.mid</td>
+                            <td>@lst_PdetailR.itemid</td>
+                            <td>@lst_PdetailR.itemname</td>
+                            <td>@lst_PdetailR.saleprice</td>
+                            <td>@lst_PdetailR.quantity</td>
+                            <td>@lst_PdetailR.total</td>
+
+                            @*<td class="gap-lg-2 d-md-flex justify-content-md-center">
+
+                                <a href="@Url.Action("Edit", new { id = lst_PdetailR.id })" <button class="btn btn-outline-success px-2" style='margin-right:16px'><i class="fas fa-edit"aria-hidden="true"></i> </button>
+
+                                 <a href="@Url.Action("Delete", new { id = lst_PdetailR.id })" <button class="btn btn-outline-warning px-2"><i class="fa fa-trash"aria-hidden="true"></i></button>
+                            </td>*@
+                        </tr>
+
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            
+        </div>
+
+
+
+
+
+
+
+
+

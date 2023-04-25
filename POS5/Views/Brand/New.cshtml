@@ -1,0 +1,47 @@
+﻿@model POS5.Models.Brand
+@{
+    ViewBag.Title = "New";
+    //   /Layout = "~/Views/_ViewStart.cshtml";
+   
+}
+
+
+@using (Html.BeginForm("Save", "Brand", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+
+
+
+    <h3><b>New Brand</b></h3>
+    <div class="card">
+
+        <div class="d-flex align-items-end flex-column">
+            <button type="button" class="btn btn-primary mr-2 mt-2"  onclick="window.location='@Url.Action("Index", "Brand")'"> View List</button>
+        </div>
+
+
+
+        <div class="col-sm-3">
+            <div class="form-group">
+                <b>Brand Name</b>
+                @Html.TextBoxFor(m => m.name, new {  @class = "",required="required"  })
+            </div>
+            @Html.HiddenFor(m => m.id)
+
+
+            <button type="submit" class="btn btn-outline-success my-2 "><i class="fas fa-save"></i> Save</button>
+        </div>
+    </div>
+
+
+
+
+}
+
+
+
+
+
+
+

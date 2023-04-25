@@ -1,0 +1,377 @@
+﻿@model  POS5.viewModels.LedgerVM
+@{ 
+    ViewBag.Title = "Index";
+    Layout = null;
+    var name = ViewData.Model.parameter.name;
+    var dateto = ViewData.Model.parameter.datet;
+
+    var datefrom = ViewData.Model.parameter.datefrom;
+
+
+    var sr = 0;
+
+}
+
+<style>
+    body {
+        margin-top: 20px;
+        background-color: #f7f7ff;
+    }
+
+    #invoice {
+        padding: 0px;
+    }
+    .invoice {
+        position: relative;
+        background-color: #FFF;
+        min-height: 680px;
+        padding: 15px
+    }
+
+        .invoice header {
+            padding: 10px 0;
+            margin-bottom: -7px;
+        }
+
+        .invoice .company-details {
+            text-align: right
+        }
+
+            .invoice .company-details .name {
+                margin-top: 0;
+                margin-bottom: 0
+            }
+
+        .invoice .contacts {
+            margin-bottom: 20px
+        }
+
+        .invoice .invoice-to {
+            text-align: left
+        }
+
+            .invoice .invoice-to .to {
+                margin-top: 0;
+                margin-bottom: 0
+            }
+
+        .invoice .invoice-details {
+            text-align: right
+        }
+
+            .invoice .invoice-details .invoice-id {
+                margin-top: -100px;
+                color: #0d6efd
+            }
+
+        .invoice main {
+            padding-bottom: 50px
+        }
+
+            .invoice main .thanks {
+                margin-top: -100px;
+                font-size: 2em;
+                margin-bottom: 50px
+            }
+
+            .invoice main .notices {
+                padding-left: 6px;
+                border-left: 6px solid #0d6efd;
+                background: #e7f2ff;
+                padding: 10px;
+            }
+
+                .invoice main .notices .notice {
+                    font-size: 1.2em
+                }
+
+    #head {
+        width: 97%;
+        margin-top: 150px;
+        margin-left: 15px;
+        border-bottom: 1px solid #aaa;
+        /*  outline: black solid 2px;
+                border-spacing: 0;*/
+        margin-bottom: 20px;
+    }
+
+    .body {
+        width: 97%;
+        margin-top: 150px;
+        margin-left: 15px;
+        border-bottom: 1px solid #aaa;
+        outline: black solid 2px;
+        border-spacing: 0;
+        margin-bottom: 20px;
+    }
+
+    #data {
+        margin-top: 100px;
+        width: 50%;
+        margin-left: 650px
+    }
+
+    .table th, tbody {
+        border: 1px solid;
+    }
+
+    .invoice table td,
+    .invoice table th {
+        padding: 15px;
+        /* border-bottom: 2px solid black*/
+    }
+
+    .invoice table tbody {
+        border: solid;
+        border-width: 1px 0;
+    }
+
+
+    .invoice table th {
+        font-weight: 400;
+        font-size: 16px;
+        /*  background-color: lightgrey;*/
+    }
+
+    .invoice table td h3 {
+        margin: 0;
+        font-weight: 400;
+        border: 1px solid;
+        font-size: 1.2em
+    }
+
+
+    .invoice table .no {
+        color: #fff;
+        font-size: 1.6em;
+    }
+
+
+    .invoice table tbody tr {
+        border: 1px solid;
+    }
+
+    .invoice table tfoot td {
+        background: 0 0;
+        border-bottom: none;
+        white-space: nowrap;
+        text-align: right;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        border-top: 1px solid #aaa
+    }
+
+    .invoice table tfoot tr:first-child td {
+        border-top: none
+    }
+
+
+
+    .invoice table tfoot tr:last-child td {
+        color: #0d6efd;
+    }
+
+    .invoice table tfoot tr td:first-child {
+        border: none
+    }
+
+    .invoice footer {
+        width: 100%;
+        text-align: center;
+        color: #777;
+        padding: 8px 0
+    }
+
+
+    .invoice {
+        font-size: 11px !important;
+        overflow: hidden !important
+    }
+
+        .invoice footer {
+            position: absolute;
+            bottom: 10px;
+            page-break-after: always
+        }
+
+        .invoice > div:last-child {
+            page-break-before: always
+        }
+
+    }
+
+    .invoice main .notices {
+        padding-left: 6px;
+        border-left: 6px solid #0d6efd;
+        background: #e7f2ff;
+        padding: 10px;
+    }
+
+    #printButton {
+        background-color: #0E86D4;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        padding: 12px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        /*margin: 5px 2px;*/
+        margin-top: -28px;
+        cursor: pointer;
+    }
+
+    .date {
+        font-size: 18px;
+    }
+
+    .idd {
+        font-size: 18px;
+    }
+
+    .email {
+        font-size: 15px;
+    }
+
+    .address {
+        font-size: 15px;
+    }
+
+    .text-gray-light {
+        font-size: 15px;
+    }
+
+    #col invoice-details {
+        margin-top: 20px;
+    }
+
+    #color {
+        background-color: lightgrey
+    }
+
+    #first {
+        background-color: limegreen
+    }
+
+    #second {
+        background-color: lightcyan
+    }
+</style>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div id="invoice">
+                <div class="invoice overflow-auto">
+                    <div style="min-width: 600px">
+                        <header>
+                            <div class="row">
+                                <div class="col">
+
+                                    <img src="~/Content/dist/img/lol.jpg" width="80" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </header>
+                        <main>
+                            <div class="row contacts">
+                                <div class="col invoice-to">
+                                    <div class="text-gray-light">INVOICE TO:</div>
+                                    <h1 class="to"></h1>
+                                    <div class="address">Somewhere on Earth</div>
+                                    <div class="email">
+                                        abc@gmail.com
+                                    </div>
+                                </div>
+                                <div class="col invoice-details">
+
+                                    <h1 class="invoice-id">ITEM LEDGER</h1>
+                                    <div class="date"><b>Date From</b>:@datefrom.ToString("dd-MM-yyyy")</div>
+                                    <div class="date"><b>Date To</b>:@dateto.ToString("dd-MM-yyyy")</div>
+
+                                </div>
+                            </div>
+
+                            <table id="head" border="1" cellspacing="0" cellpadding="0" width="1500" background-color="white">
+                                <thead>
+                                    <tr>
+                                        
+                                        
+                                        <th id="second" colspan="6">Item Name :<b> @name</b></th>
+                                      
+                                       
+                                    </tr>
+                                    <tr id="color">
+                                        <th><b>#</b></th>
+                                        <th class="text-align:center"><b>Date</b></th>
+                                        <th class="text-align:center"><b>Details</b></th>
+                                        <th class="text-align:center"><b>In</b></th>
+                                        <th class="text-align:center"><b>Out</b></th>
+                                        <th class="text-align:center"><b>Balance Stock</b></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var lst_ItemLedger in Model.ItemLedgerList)
+
+                                    {
+                                        if (lst_ItemLedger.id == 0)
+                                        {
+
+                                        }
+                                        sr += 1;
+
+                                        <tr>
+                                            <td>@sr </td>
+                                            <td style="text-align:center">@lst_ItemLedger.dateF.ToString("dd-MM-yyyy") </td>
+                                            <td style="text-align:center">#Purchase  @lst_ItemLedger.pur</td>
+                                            <td style="text-align:center">@lst_ItemLedger.PurchaseIN</td>
+                                            <td style="text-align:center"> 0 </td>
+                                            <td style="text-align:center">@(lst_ItemLedger.PurchaseIN ) </td>
+                                        </tr>
+                                        <tr>
+                                            <td>@sr</td>
+                                            <td style="text-align:center">@lst_ItemLedger.dateF.ToString("dd-MM-yyyy") </td>
+                                            <td style="text-align:center">#Sale  @lst_ItemLedger.id </td>
+                                            <td style="text-align:center"> 0 </td>
+                                            <td style="text-align:center"> @lst_ItemLedger.SaleReturnOUT</td>
+                                            <td style="text-align:center"> @(lst_ItemLedger.PurchaseIN - lst_ItemLedger.SaleReturnOUT ) </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>@sr </td>
+                                            <td style="text-align:center">@lst_ItemLedger.dateF.ToString("dd-MM-yyyy") </td>
+                                            <td style="text-align:center">#Purchase Return  @lst_ItemLedger.preturnid</td>
+                                            <td style="text-align:center">0</td>
+                                            <td style="text-align:center"> @lst_ItemLedger.PurchaseReturnOUT </td>
+                                            <td style="text-align:center">@( @lst_ItemLedger.PurchaseIN - lst_ItemLedger.SaleReturnOUT - lst_ItemLedger.PurchaseReturnOUT )</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@(sr=sr+1)</td>
+                                            <td style="text-align:center">@lst_ItemLedger.dateF.ToString("dd-MM-yyyy") </td>
+                                            <td style="text-align:center">#Sale IN @lst_ItemLedger.sreturnid </td>
+                                            <td style="text-align:center"> @lst_ItemLedger.SaleIN </td>
+                                            <td style="text-align:center"> 0</td>
+                                            <td style="text-align:center"> @( lst_ItemLedger.SaleReturnOUT - lst_ItemLedger.PurchaseReturnOUT + lst_ItemLedger.SaleIN ) </td>
+                                        </tr>
+
+
+                                    }
+                                </tbody>
+
+                            </table>
+
+
+                        </main>
+                        
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

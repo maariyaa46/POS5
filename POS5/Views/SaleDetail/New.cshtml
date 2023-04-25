@@ -1,0 +1,54 @@
+﻿@*@model POS5.viewModels.newSaleVM
+@{
+    ViewBag.Title = "New";
+    //   /Layout = "~/Views/_ViewStart.cshtml";
+}
+<h2>New SaleDetail</h2>
+
+@using (Html.BeginForm("Save", "SaleDetail", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="row">
+        <div class="col-sm-3">
+            <b>m id</b>
+            @Html.TextBoxFor(m => m.Saledetail.mid, new { @class = "form-control input-xs" })
+        </div>
+        <b>item id</b>
+        @Html.TextBoxFor(m => m.Saledetail.itemid, new { @class = "form-control input-xs" })
+    </div>
+
+
+
+    <div class="col-sm-3">
+        <b>Item Name</b>
+        @Html.DropDownListFor(m => m.Item.name, new SelectList(Model.Itemlist, "Name", "Name"), "Select Item Name", htmlAttributes: new { @class = "form-control input-xs" })
+    </div>
+    <div class="col-sm-3">
+        <b>Sale price</b>
+        @Html.TextBoxFor(m => m.Saledetail.saleprice, new { @class = "form-control input-xs" })
+    </div>
+    <div class="col-sm-3">
+        <b>Quantity</b>
+        @Html.TextBoxFor(m => m.Saledetail.quantity, new { @class = "form-control input-xs" })
+    </div>
+
+
+
+
+
+
+
+    @Html.HiddenFor(m => m.Saledetail.id)
+    <button type="submit" class="btn btn-info shiny"><i class="btn-label glyphicon glyphicon-saved"></i>Save</button>
+
+}*@
+
+
+
+
+
+
+
+

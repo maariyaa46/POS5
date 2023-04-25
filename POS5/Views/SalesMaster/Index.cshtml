@@ -1,0 +1,96 @@
+﻿
+@model IEnumerable<POS5.Models.SalesMaster>
+
+<div class="card">
+    <div class="card-header">
+        <h4> <b>Sale Master</b></h4>
+    </div>
+    <div class="table-responsive">
+            <table id="saletable" class="table table-bordered">
+            <div class="gap-lg-2 d-md-flex justify-content-md-end">
+                <input type="text" id="my" onkeyup="myFunction()" placeholder="Search for data.." title="Type in a name">
+            </div>
+            <thead>
+
+                <tr class="table-secondary">
+
+                    <th class="th-lg">ID</th>
+                    <th class="th-lg">Date</th>
+                    <th class="th-lg">Customer Name</th>
+                    <th class="th-lg">Gross total</th>
+                    <th class="th-lg">Received Amount</th>
+                    <th class="th-lg">Net total</th>
+                    <th class="th-lg">Tax</th>
+                    <th class="th-lg">Disount</th>
+                    <th class="th-lg">Balanced Amount</th>
+                    <th class="th-lg">Comment</th>
+                    <th class="th-lg">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    @if (!Model.Any())
+                    {
+                    }
+                    else
+                    {
+                        foreach (var lst_SalesMaster in Model)
+                        {
+                        <tr>
+
+                            <td>@lst_SalesMaster.id</td>
+                            <td>@lst_SalesMaster.date</td>
+                            <td>@lst_SalesMaster.customerName</td>
+                            <td>@lst_SalesMaster.grosstotal</td>
+                            <td>@lst_SalesMaster.receivedamount</td>
+                            <td>@lst_SalesMaster.nettotal</td>
+                            <td>@lst_SalesMaster.tax</td>
+                            <td>@lst_SalesMaster.discount</td>
+                            <td>@lst_SalesMaster.balanceamount</td>
+                            <td>@lst_SalesMaster.comment</td>
+
+
+
+
+                            <td class="gap-lg-2 d-md-flex justify-content-md-center">
+
+                                <a href="@Url.Action("Edit", new { id = lst_SalesMaster.id })" button class="btn btn-outline-success px-2" style='margin-right:16px'>
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                    <a href="@Url.Action("Delete", new { id = lst_SalesMaster.id })" onclick="return confirm('are you sure you want to delete')" button class="btn btn-outline-warning px-2" style='margin-right:16px'>
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        <a href="@Url.Action("Print", new { id = lst_SalesMaster.id })" button class="btn btn-outline-primary px-2"><i class="fa fa-print" aria-hidden="true"></i>
+                          
+                                        </td>
+
+                        </tr>
+
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-info shiny" onclick="window.location='@Url.Action("New", "SalesMaster")'"><i class="btn-label glyphicon glyphicon-plus"></i>New</button>
+        </div>
+        <script>
+            function myFunction() {
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("my");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("saletable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[2];
+
+                    if (td) {
+                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>
+      

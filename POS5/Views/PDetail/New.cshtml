@@ -1,0 +1,44 @@
+﻿@*@model POS5.Models.PDetail
+    @{
+        ViewBag.Title = "New";
+        //   /Layout = "~/Views/_ViewStart.cshtml";
+    }
+    <h2>New PDetail</h2>
+
+    @using (Html.BeginForm("Save", "PDetail", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-sm-3">
+                <b>Mid</b>
+                @Html.TextBoxFor(m => m.mid, new { @class = "form-control input-xs" })
+            </div>
+            <div class="col-sm-3">
+                <b>ItemId</b>
+                @Html.TextBoxFor(m => m.itemid, new { @class = "form-control input-xs" })
+            </div>
+            <div class="col-sm-3">
+                <b>Item Name</b>
+                @Html.TextBoxFor(m => m.itemname, new { @class = "form-control input-xs" })
+            </div>
+            <div class="col-sm-3">
+                <b>Sale Price</b>
+                @Html.TextBoxFor(m => m.sale
+    <a href="~/Views/PDetail/New.cshtml">~/Views/PDetail/New.cshtml</a>price, new { @class = "form-control input-xs" })
+            </div>
+            <div class="col-sm-3">
+                <b>Purchase Price</b>
+                @Html.TextBoxFor(m => m.purchaseprice, new { @class = "form-control input-xs" })
+            </div>
+            <div class="col-sm-3">
+                <b>Quantity</b>
+                @Html.TextBoxFor(m => m.quantity, new { @class = "form-control input-xs" })
+            </div>
+            <div class="col-sm-3">
+                <b>Total</b>
+                @Html.TextBoxFor(m => m.total, new { @class = "form-control input-xs" })
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.id)
+        <button type="submit" class="btn btn-info shiny"><i class="btn-label glyphicon glyphicon-saved"></i>Save</button>
+    }*@

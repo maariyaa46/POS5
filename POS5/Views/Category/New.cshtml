@@ -1,0 +1,57 @@
+﻿@model POS5.Models.Category
+    @{ 
+    ViewBag.Title = "New";
+    //   /Layout = "~/Views/_ViewStart.cshtml";
+}
+
+
+@using (Html.BeginForm("New", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h3><b>New Category</b></h3>
+    <div class="card">
+
+        <div class="d-flex align-items-end flex-column">
+            <button type="button" class="btn btn-primary mr-2 mt-2" onclick="window.location='@Url.Action("Index", "Category")'"> View List</button>
+        </div>
+        <div class="row ">
+            <div class="form-group ml-5">
+                <b> Name</b>
+                @Html.TextBoxFor(m => m.name, new { @class = "", required = "required" })
+            </div>
+            <div class="form-group ml-5">
+                <b>Brand</b>
+                @Html.DropDownListFor(m => m.brandid, ViewBag.BrandList as SelectList, "***Select SubCategory***", new { @class = "form-control fs-4" })
+            </div>
+
+
+            <div class=" form-group ml-5">
+
+                <div class="col-md-10">
+                    <input type="file" name="imgFile" />
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-3">
+            @Html.HiddenFor(m => m.id)
+            <button type="submit" class="btn btn-outline-success my-2 "><i class="fas fa-save"></i> Save</button>
+        </div>
+    </div>
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+﻿@model POS5.Models.City
+@{
+    ViewBag.Title = "New";
+    //   /Layout = "~/Views/_ViewStart.cshtml";
+}
+<h2>New City</h2>
+
+@using (Html.BeginForm("Save", "City", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="row">
+
+
+
+
+        <div class="col-sm-3">
+            <b>Name</b>
+            @Html.TextBoxFor(m => m.name, new { @class = "form-control input-xs" })
+        </div>
+        
+    </div>
+
+
+
+
+
+
+    @Html.HiddenFor(m => m.id)
+    <button type="submit" class="btn btn-info shiny"><i class="btn-label glyphicon glyphicon-saved"></i>Save</button>
+
+}
+
+
+
+
+
+
+
+

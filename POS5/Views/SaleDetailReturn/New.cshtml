@@ -1,0 +1,54 @@
+﻿@*@model POS5.Models.SaleDetailReturn
+@{
+    ViewBag.Title = "New";
+    //   /Layout = "~/Views/_ViewStart.cshtml";
+}
+<h2>New SaleDetailReturn</h2>
+
+@using (Html.BeginForm("Save", "SaleDetailReturn", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="row">
+        
+            <b>m id</b>
+            @Html.TextBoxFor(m => m.mid, new { @class = "" })
+        
+        <b>item id</b>
+        @Html.TextBoxFor(m => m.itemid, new { @class = "" })
+    
+
+
+
+      <b>Item name</b>
+        @Html.TextBoxFor(m => m.itemname, new { @class = "" })
+    
+        
+    
+        <b>Sale price</b>
+        @Html.TextBoxFor(m => m.saleprice, new { @class = "" })
+    
+   
+        <b>Quantity</b>
+        @Html.TextBoxFor(m => m.quantity, new { @class = "" })
+    
+        </div>
+
+
+
+
+
+
+    @Html.HiddenFor(m => m.id)
+    <button type="submit" class="btn btn-info shiny"><i class="btn-label glyphicon glyphicon-saved"></i>Save</button>
+
+}*@
+
+
+
+
+
+
+
+

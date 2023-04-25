@@ -1,0 +1,56 @@
+﻿@model POS5.viewModels.ReportVM
+@{
+    ViewBag.Title = "New";
+    //   /Layout = "~/Views/_ViewStart.cshtml";
+}
+
+
+@using (Html.BeginForm("Index", "PurchaseReport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h3><b></b></h3>
+    <div class="card">
+
+       
+        <div class="row ">
+            <div class="col-md-10 mx-5">
+                <b> Table Name</b>
+                @Html.DropDownListFor(m => m.PurchaseReport.tablename, new SelectList(Model.Tablelist, "Name", "Name"), "Select Table Name", htmlAttributes: new { @class = "form-control input-xs" })
+            </div>
+            <div class="col-md-10 mx-5">
+                <b>Invoice Name</b>
+                @Html.DropDownListFor(m => m.PurchaseReport.view, new SelectList(Model.Invoicelist, "Name", "Name"), "Select Invoice", htmlAttributes: new { @class = "form-control input-xs" })
+            </div>
+            <div class="col-md-10 mx-5">
+                <b>Date From</b>
+                @Html.TextBoxFor(m => m.PurchaseReport.dateFrom, new { @class = "form-control input-xs", id = "date", type = "date", @Value = DateTime.Today.ToString("yyyy-MM-dd") })
+            </div>
+            <div class="col-md-10 mx-5">
+                <b>Date To</b>
+                @Html.TextBoxFor(m => m.PurchaseReport.dateTo, new { @class = "form-control input-xs", id = "date", type = "date", @Value = DateTime.Today.ToString("yyyy-MM-dd") })
+            </div>
+        </div>
+
+     
+        <div class="col-sm-3 mx-5">
+            @Html.HiddenFor(m => m.PurchaseReport.id)
+            <button type="submit" class="btn btn-outline-success my-2 "><i class="fas fa-save"></i> Save</button>
+        </div>
+    </div>
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
