@@ -40,3 +40,8 @@ steps:
     SourceFolder: '$(Agent.BuildDirectory)\s'''
     Contents: '**'
     TargetFolder: '$(Agent.BuildDirectory)\a'''
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Agent.BuildDirectory)\s'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
